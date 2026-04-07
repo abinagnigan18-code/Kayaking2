@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("YOUR_PUBLIC_KEY"); // replace this
+})();
+</script>
+<meta charset="UTF-8">
+<title>Kayak Adventure</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  background: #0077b6;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+
+/* Navigation */
+nav {
+  background: #023e8a;
+  display: flex;
+  justify-content: center;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+nav button:hover {
+  background: #0077b6;
+}
+
+/* Sections */
+section {
+  display: none;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+/* Home image */
+.hero {
+  width: 100%;
+  height: 300px;
+  background: url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e) no-repeat center/cover;
+}
+
+/* Form styling */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button.submit {
+  background: #0077b6;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button.submit:hover {
+  background: #023e8a;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Kayak Adventure</h1>
+  <p>Explore the beauty of water</p>
+</header>
+
+<nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('about')">About</button>
+  <button onclick="showPage('feedback')">Feedback</button>
+  <button onclick="showPage('booking')">Booking</button>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+  <div class="hero"></div>
+  <h2>Welcome to Kayak Adventure</h2>
+  <p>
+    Experience the thrill of kayaking through serene backwaters and beautiful landscapes. 
+    Our guided tours ensure safety, fun, and unforgettable memories.
+  </p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>About Kayaking</h2>
+  <p>
+    Kayaking is an exciting water sport where you paddle through rivers, lakes, or oceans 
+    using a small boat called a kayak.
+  </p>
+  <p>
+    In Kochi, kayaking offers a unique experience through mangroves, calm backwaters, 
+    and scenic beauty. It is suitable for beginners and professionals alike.
+  </p>
+  <ul>
+    <li>✔ Safe and guided tours</li>
+    <li>✔ Beautiful nature views</li>
+    <li>✔ Adventure and relaxation</li>
+  </ul>
+</section>
+
+<!-- FEEDBACK -->
+<section id="feedback">
+  <h2>Customer Feedback</h2>
+  
+  <form onsubmit="submitFeedback(event)">
+    <input type="text" placeholder="Your Name" required>
+    <textarea placeholder="Your Feedback" required></textarea>
+    <button class="submit">Submit</button>
+  </form>
+
+  <h3>Reviews:</h3>
+  <ul id="feedbackList"></ul>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <h2>Book Your Kayak Ride</h2>
+  <form onsubmit="submitBooking(event)">
+    <input type="text" placeholder="Full Name" required>
+    <input type="date" required>
+    
+    <select required>
+      <option value="">Select Package</option>
+      <option>1 Hour Ride</option>
+      <option>2 Hour Ride</option>
+      <option>only sunset</option>
+      <option>Full Day Adventure</option>
+    </select>
+
+    <input type="number" placeholder="Number of People" required>
+    
+    <button class="submit">Book Now</button>
+  </form>
+
+  <p id="bookingMessage"></p>
+</section>
+
+<script>
+// Navigation
+function showPage(pageId) {
+  let sections = document.querySelectorAll("section");
+  sections.forEach(sec => sec.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+}
+
+// Feedback system
+function submitFeedback(event) {
+  event.preventDefault();
+  let name = event.target[0].value;
+  let message = event.target[1].value;
+
+  let li = document.createElement("li");
+  li.textContent = name + ": " + message;
+
+  document.getElementById("feedbackList").appendChild(li);
+
+  event.target.reset();
+}
+
+// Booking system
+function submitBooking(event) {
+  event.preventDefault();
+  document.getElementById("bookingMessage").textContent =
+    "Booking successful! ksyorakayaking will contact you soon.";
+  event.target.reset();
+}
+</script>
+
+</body>
+</html>
